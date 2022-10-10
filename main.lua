@@ -42,7 +42,7 @@ Title.Position = UDim2.new(0.0272108838, 0, 0, 0)
 Title.Size = UDim2.new(0, 255, 0, 31)
 Title.ZIndex = 3
 Title.Font = Enum.Font.RobotoMono
-Title.Text = "PlotCopy v1 | sashaa#5351"
+Title.Text = "PlotCopy v2 | sashaa#5351"
 Title.TextColor3 = Color3.fromRGB(255, 131, 43)
 Title.TextSize = 22.000
 Title.TextStrokeTransparency = 0.000
@@ -246,6 +246,12 @@ local Notify = function(title, text)
     })
 end
 
+-- ty SnowyShiro !!!!!!!!!!!
+local saveinstance,SaveInstance=getgenv().saveinstance;
+local bo=getupvalue(saveinstance,2)SaveInstance=bo.Save;
+if not getupvalue(saveinstance,1)then bo.Init(getupvalue(saveinstance,3))setupvalue(saveinstance,1,true)end;
+-- i skid.
+
 local PrivateBuilds = workspace["Private Building Areas"]
 local MyPlot = workspace:FindFirstChild("Private Building Areas"):FindFirstChild(game:GetService("Players").LocalPlayer.Name.."BuildArea")
 if MyPlot ~= nil then
@@ -253,6 +259,10 @@ if MyPlot ~= nil then
 end
 
 local CachedBuilds = {}
+
+local function syncRemote()
+    return game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint
+end
 
 local function CreatePart(Position,PartInstance)
     
@@ -281,7 +291,7 @@ local function CreatePart(Position,PartInstance)
         [4] = MyPlot
     }
     
-    local Response = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+    local Response = syncRemote():InvokeServer(unpack(args))
 
     return Response
 end
@@ -299,7 +309,7 @@ local function ResizePart(Part,Size)
         }
     }
     
-    game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint:InvokeServer(unpack(args))    
+    syncRemote():InvokeServer(unpack(args))    
     end
 end
 
@@ -315,7 +325,7 @@ local function Decalize(Part,Decal)
         }
     }
     
-    local Response = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+    local Response = syncRemote():InvokeServer(unpack(args))
     
     local args = {
         [1] = "SyncTexture",
@@ -330,7 +340,7 @@ local function Decalize(Part,Decal)
         }
     }
     
-    game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+    syncRemote():InvokeServer(unpack(args))
     
 end
 
@@ -347,7 +357,7 @@ local function ColorPart(Part,Color)
         }
     }
     
-    game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+    syncRemote():InvokeServer(unpack(args))
     end
 end
 
@@ -362,9 +372,7 @@ local function Meshinate(Part,Mesh)
         }
     }
     
-    game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
-    
-    local Response = Part:WaitForChild("SpecialMesh",3)
+    local Response = syncRemote():InvokeServer(unpack(args))
 
     if Mesh.MeshType == Enum.MeshType.FileMesh then
         local args = {
@@ -380,7 +388,7 @@ local function Meshinate(Part,Mesh)
             }
         }
         
-        game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+        syncRemote():InvokeServer(unpack(args))
     else
         local args = {
             [1] = "SyncMesh",
@@ -393,7 +401,7 @@ local function Meshinate(Part,Mesh)
             }
         }
         
-        game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+        syncRemote():InvokeServer(unpack(args))
     end
 
 end
@@ -410,7 +418,7 @@ local function Lightify(Part,Light)
         }
     }
     
-    local Response = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+    local Response = syncRemote():InvokeServer(unpack(args))
 
     if Light.ClassName ~= "PointLight" then
 
@@ -430,7 +438,7 @@ local function Lightify(Part,Light)
             }
         }
         
-        game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+        syncRemote():InvokeServer(unpack(args))
     else
         local args = {
             [1] = "SyncLighting",
@@ -446,7 +454,7 @@ local function Lightify(Part,Light)
             }
         }
         
-        game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+        syncRemote():InvokeServer(unpack(args))
     end
 
     
@@ -469,7 +477,7 @@ local function MaterializePart(Part,Material,Transparency,Reflectance)
         }
     }
     
-    game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+    syncRemote():InvokeServer(unpack(args))
     
     --end
 end
@@ -487,7 +495,7 @@ local function Collideify(Part,CanCollide)
             }
         }
         
-        game:GetService("Players").LocalPlayer.Character:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint:InvokeServer(unpack(args)) 
+        syncRemote():InvokeServer(unpack(args)) 
     end
  
 end
@@ -506,6 +514,17 @@ local function BuildPlot(Folder,CFrame)
         end
     end
 
+    
+
+    for i,v in pairs(Folder.Build:GetChildren()) do
+        if v:IsA("Model") then
+            for i,x in v:GetChildren() do
+                x.Parent = v.Parent
+            end
+            v:Destroy()
+        end
+    end
+
     local FolderTable = Folder.Build:GetChildren()
 
     table.sort(FolderTable,
@@ -517,6 +536,8 @@ local function BuildPlot(Folder,CFrame)
 			end
 		end
 	)
+    
+    --local FolderTable = Folder.Build:GetDescendants()
 
     -- for _,v in pairs(Folder:GetChildren()) do
     --     v.Transparency = 0.5
@@ -569,6 +590,7 @@ local function BuildPlot(Folder,CFrame)
             if v:FindFirstChildOfClass("SpotLight") then
                 Lightify(P,v:FindFirstChildOfClass("SpotLight"))
             end
+            
             Notify("Building...",tostring(i).."/"..tostring(#FolderTable))
         end
         end)
@@ -612,15 +634,14 @@ LoadPlot.MouseButton1Click:Connect(function()
     end
 end)
 
--- SavePlot.MouseButton1Click:Connect(function()
---     if CachedBuilds[CurrentSelection] then
---         local ToSave = CachedBuilds[CurrentSelection][1]
---         print(saveAttributes(ToSave))
---         writefile("/PlotCopySaves/",saveAttributes(ToSave))
---     end
--- end)
+SavePlot.MouseButton1Click:Connect(function()
+    if CachedBuilds[CurrentSelection] then
+        local ToSave = CachedBuilds[CurrentSelection][1]
+        writefile("/PlotCopySaves/",saveinstance(ToSave,SaveFile.Text))
+    end
+end)
 
 
--- if not isfolder("PlotCopySaves") then
---     makefolder("PlotCopySaves")
--- end
+if not isfolder("PlotCopySaves") then
+    makefolder("PlotCopySaves")
+end

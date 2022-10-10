@@ -374,6 +374,8 @@ local function Meshinate(Part,Mesh)
     
     local Response = syncRemote():InvokeServer(unpack(args))
 
+    Part:WaitForChildOfClass("SpecialMesh",3)
+
     if Mesh.MeshType == Enum.MeshType.FileMesh then
         local args = {
             [1] = "SyncMesh",
@@ -518,8 +520,8 @@ local function BuildPlot(Folder,CFrame)
 
     for i,v in pairs(Folder.Build:GetChildren()) do
         if v:IsA("Model") then
-            for i,x in v:GetChildren() do
-                x.Parent = v.Parent
+            for i,x in pairs(v:GetChildren()) do
+                x.Parent = Folder.Build
             end
             v:Destroy()
         end
@@ -565,7 +567,7 @@ local function BuildPlot(Folder,CFrame)
     for i,v in ipairs(FolderTable) do
         pcall(function()
         if v:IsA("BasePart") then
-            task.wait(0.03)
+            task.wait(0.05)
 
             local P = CreatePart(v.CFrame,v)
 
@@ -590,7 +592,7 @@ local function BuildPlot(Folder,CFrame)
             if v:FindFirstChildOfClass("SpotLight") then
                 Lightify(P,v:FindFirstChildOfClass("SpotLight"))
             end
-            
+
             Notify("Building...",tostring(i).."/"..tostring(#FolderTable))
         end
         end)
@@ -637,7 +639,8 @@ end)
 SavePlot.MouseButton1Click:Connect(function()
     if CachedBuilds[CurrentSelection] then
         local ToSave = CachedBuilds[CurrentSelection][1]
-        writefile("/PlotCopySaves/",saveinstance(ToSave,SaveFile.Text))
+        saveinstance(ToSave,SaveFile.Text)
+        writefile("/PlotCopySaves/",SaveFile.Text)
     end
 end)
 

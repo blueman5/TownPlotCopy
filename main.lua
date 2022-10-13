@@ -8,7 +8,7 @@ local Mainframe = Instance.new("Frame")
 local Title = Instance.new("TextLabel")
 local UICorner = Instance.new("UICorner")
 local CloseButton = Instance.new("ImageButton")
-local SavePlot = Instance.new("TextButton")
+--local SavePlot = Instance.new("TextButton")
 local UICorner_2 = Instance.new("UICorner")
 local LoadPlot = Instance.new("TextButton")
 local UICorner_3 = Instance.new("UICorner")
@@ -16,7 +16,7 @@ local Pattern = Instance.new("ImageLabel")
 local CurrentPlot = Instance.new("TextLabel")
 local Username = Instance.new("TextBox")
 local UICorner_4 = Instance.new("UICorner")
-local SaveFile = Instance.new("TextBox")
+--local SaveFile = Instance.new("TextBox")
 local UICorner_5 = Instance.new("UICorner")
 local TextLabel = Instance.new("TextLabel")
 
@@ -61,19 +61,19 @@ CloseButton.Image = "rbxassetid://3926305904"
 CloseButton.ImageRectOffset = Vector2.new(164, 164)
 CloseButton.ImageRectSize = Vector2.new(36, 36)
 
-SavePlot.Name = "SavePlot"
-SavePlot.Parent = Mainframe
-SavePlot.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
-SavePlot.Position = UDim2.new(0.0884353742, 0, 0.674568892, 0)
-SavePlot.Size = UDim2.new(0, 241, 0, 50)
-SavePlot.ZIndex = 3
-SavePlot.Font = Enum.Font.RobotoMono
-SavePlot.Text = "Save Plot To File"
-SavePlot.TextColor3 = Color3.fromRGB(255, 189, 35)
-SavePlot.TextSize = 27.000
+-- SavePlot.Name = "SavePlot"
+-- SavePlot.Parent = Mainframe
+-- SavePlot.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
+-- SavePlot.Position = UDim2.new(0.0884353742, 0, 0.674568892, 0)
+-- SavePlot.Size = UDim2.new(0, 241, 0, 50)
+-- SavePlot.ZIndex = 3
+-- SavePlot.Font = Enum.Font.RobotoMono
+-- SavePlot.Text = "Save Plot To File"
+-- SavePlot.TextColor3 = Color3.fromRGB(255, 189, 35)
+-- SavePlot.TextSize = 27.000
 
-UICorner_2.CornerRadius = UDim.new(0, 30)
-UICorner_2.Parent = SavePlot
+-- UICorner_2.CornerRadius = UDim.new(0, 30)
+-- UICorner_2.Parent = SavePlot
 
 LoadPlot.Name = "LoadPlot"
 LoadPlot.Parent = Mainframe
@@ -132,21 +132,21 @@ Username.TextWrapped = true
 
 UICorner_4.Parent = Username
 
-SaveFile.Name = "SaveFile"
-SaveFile.Parent = Mainframe
-SaveFile.BackgroundColor3 = Color3.fromRGB(16, 15, 13)
-SaveFile.Position = UDim2.new(0.0646258518, 0, 0.534482718, 0)
-SaveFile.Size = UDim2.new(0, 255, 0, 50)
-SaveFile.Font = Enum.Font.RobotoMono
-SaveFile.Text = "File Name"
-SaveFile.TextColor3 = Color3.fromRGB(255, 243, 243)
-SaveFile.TextScaled = true
-SaveFile.TextSize = 14.000
-SaveFile.TextStrokeColor3 = Color3.fromRGB(78, 17, 116)
-SaveFile.TextStrokeTransparency = 0.000
-SaveFile.TextWrapped = true
+-- SaveFile.Name = "SaveFile"
+-- SaveFile.Parent = Mainframe
+-- SaveFile.BackgroundColor3 = Color3.fromRGB(16, 15, 13)
+-- SaveFile.Position = UDim2.new(0.0646258518, 0, 0.534482718, 0)
+-- SaveFile.Size = UDim2.new(0, 255, 0, 50)
+-- SaveFile.Font = Enum.Font.RobotoMono
+-- SaveFile.Text = "File Name"
+-- SaveFile.TextColor3 = Color3.fromRGB(255, 243, 243)
+-- SaveFile.TextScaled = true
+-- SaveFile.TextSize = 14.000
+-- SaveFile.TextStrokeColor3 = Color3.fromRGB(78, 17, 116)
+-- SaveFile.TextStrokeTransparency = 0.000
+-- SaveFile.TextWrapped = true
 
-UICorner_5.Parent = SaveFile
+-- UICorner_5.Parent = SaveFile
 
 TextLabel.Parent = Mainframe
 TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -246,11 +246,11 @@ local Notify = function(title, text)
     })
 end
 
--- ty SnowyShiro !!!!!!!!!!!
-local saveinstance,SaveInstance=getgenv().saveinstance;
-local bo=getupvalue(saveinstance,2)SaveInstance=bo.Save;
-if not getupvalue(saveinstance,1)then bo.Init(getupvalue(saveinstance,3))setupvalue(saveinstance,1,true)end;
--- i skid.
+-- -- ty SnowyShiro !!!!!!!!!!!
+-- local saveinstance,SaveInstance=getgenv().saveinstance;
+-- local bo=getupvalue(saveinstance,2)SaveInstance=bo.Save;
+-- if not getupvalue(saveinstance,1)then bo.Init(getupvalue(saveinstance,3))setupvalue(saveinstance,1,true)end;
+-- -- i skid.
 
 local PrivateBuilds = workspace["Private Building Areas"]
 local MyPlot = workspace:FindFirstChild("Private Building Areas"):FindFirstChild(game:GetService("Players").LocalPlayer.Name.."BuildArea")
@@ -636,15 +636,15 @@ LoadPlot.MouseButton1Click:Connect(function()
     end
 end)
 
-SavePlot.MouseButton1Click:Connect(function()
-    if CachedBuilds[CurrentSelection] then
-        local ToSave = CachedBuilds[CurrentSelection][1]
-        saveinstance(ToSave,SaveFile.Text)
-        writefile("/PlotCopySaves/",SaveFile.Text)
-    end
-end)
+-- SavePlot.MouseButton1Click:Connect(function()
+--     if CachedBuilds[CurrentSelection] then
+--         local ToSave = CachedBuilds[CurrentSelection][1]
+--         saveinstance(ToSave,SaveFile.Text)
+--         writefile("/PlotCopySaves/",SaveFile.Text)
+--     end
+-- end)
 
 
-if not isfolder("PlotCopySaves") then
-    makefolder("PlotCopySaves")
-end
+-- if not isfolder("PlotCopySaves") then
+--     makefolder("PlotCopySaves")
+-- end

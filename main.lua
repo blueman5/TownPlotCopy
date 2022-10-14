@@ -8,7 +8,7 @@ local Mainframe = Instance.new("Frame")
 local Title = Instance.new("TextLabel")
 local UICorner = Instance.new("UICorner")
 local CloseButton = Instance.new("ImageButton")
---local SavePlot = Instance.new("TextButton")
+local SavePlot = Instance.new("TextButton")
 local UICorner_2 = Instance.new("UICorner")
 local LoadPlot = Instance.new("TextButton")
 local UICorner_3 = Instance.new("UICorner")
@@ -16,7 +16,7 @@ local Pattern = Instance.new("ImageLabel")
 local CurrentPlot = Instance.new("TextLabel")
 local Username = Instance.new("TextBox")
 local UICorner_4 = Instance.new("UICorner")
---local SaveFile = Instance.new("TextBox")
+local SaveFile = Instance.new("TextBox")
 local UICorner_5 = Instance.new("UICorner")
 local TextLabel = Instance.new("TextLabel")
 
@@ -514,11 +514,6 @@ local function BuildPlot(Folder,CFrame)
         local Offset = v.CFrame.Position - CFrame.Position
         v.Position = MyPlot.Parent.Position + Offset
         end
-    end
-
-    
-
-    for i,v in pairs(Folder.Build:GetChildren()) do
         if v:IsA("Model") then
             for i,x in pairs(v:GetChildren()) do
                 x.Parent = Folder.Build
@@ -621,7 +616,7 @@ Username:GetPropertyChangedSignal("Text"):Connect(function()
 
         CurrentPlot.Text = "No plot found."
         for i,plr in pairs(game.Players:GetChildren()) do
-            if plr.Name:lower():match(Username.Text:lower()) and plr.Name ~= "DiplomaticSpitfire" then
+            if plr.Name:lower():match(Username.Text:lower()) then
                 CurrentSelection = plr.Name .. "BuildArea"
                 CurrentPlot.Text = "Plot found! | " .. CurrentSelection
             end

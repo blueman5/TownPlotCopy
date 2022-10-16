@@ -520,6 +520,9 @@ local function BuildPlot(Folder,CFrame)
             end
             v:Destroy()
         end
+        if v:IsA("Folder") then
+            v:Destroy()
+        end
     end
 
     local FolderTable = Folder.Build:GetChildren()
@@ -560,36 +563,39 @@ local function BuildPlot(Folder,CFrame)
     Notify("Building","Building plot!")
 
     for i,v in ipairs(FolderTable) do
+        --if n % 2 == 0 then
         pcall(function()
-        if v:IsA("BasePart") then
-            task.wait(0.05)
+            if v:IsA("BasePart") then
+                task.wait(0.04)
 
-            local P = CreatePart(v.CFrame,v)
+                local P = CreatePart(v.CFrame,v)
 
-            Collideify(P,v.CanCollide)
-            ResizePart(P,v.Size)
-            ColorPart(P,v.Color)
-            MaterializePart(P,v.Material,v.Transparency,v.Reflectance)
+                Collideify(P,v.CanCollide)
+                ResizePart(P,v.Size)
+                ColorPart(P,v.Color)
+                MaterializePart(P,v.Material,v.Transparency,v.Reflectance)
 
-            if v:FindFirstChild("Decal") then
-                Decalize(P,v.Decal)
-            end
+                for i,v in pairs(v:GetChildren()) do
+                    if v:IsA("Decal") then
+                        Decalize(P,v)
+                    end
+                end
 
-            if v:FindFirstChildOfClass("SpecialMesh") then
-                Meshinate(P,v.Mesh)
-            end
-            if v:FindFirstChildOfClass("SurfaceLight") then
-                Lightify(P,v:FindFirstChildOfClass("SurfaceLight"))
-            end
-            if v:FindFirstChildOfClass("PointLight") then
-                Lightify(P,v:FindFirstChildOfClass("PointLight"))
-            end
-            if v:FindFirstChildOfClass("SpotLight") then
-                Lightify(P,v:FindFirstChildOfClass("SpotLight"))
-            end
+                if v:FindFirstChildOfClass("SpecialMesh") then
+                    Meshinate(P,v.Mesh)
+                end
+                if v:FindFirstChildOfClass("SurfaceLight") then
+                    Lightify(P,v:FindFirstChildOfClass("SurfaceLight"))
+                end
+                if v:FindFirstChildOfClass("PointLight") then
+                    Lightify(P,v:FindFirstChildOfClass("PointLight"))
+                end
+                if v:FindFirstChildOfClass("SpotLight") then
+                    Lightify(P,v:FindFirstChildOfClass("SpotLight"))
+                end
 
-            Notify("Building...",tostring(i).."/"..tostring(#FolderTable))
-        end
+                Notify("Building...",tostring(i).."/"..tostring(#FolderTable))
+            end
         end)
     end
 

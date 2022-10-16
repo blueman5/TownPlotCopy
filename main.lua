@@ -375,6 +375,7 @@ local function Meshinate(Part,Mesh)
     local Response = syncRemote():InvokeServer(unpack(args))
 
     Part:WaitForChildOfClass("SpecialMesh",3)
+    wait(1)
 
     if Mesh.MeshType == Enum.MeshType.FileMesh then
         local args = {
